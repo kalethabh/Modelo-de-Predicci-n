@@ -6,24 +6,23 @@ from sklearn.metrics import classification_report, accuracy_score
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Cargar los datos
+# Se guardan los datos del cvs
 df = pd.read_csv('ObesityDataSet.csv')
 
-# Variables relevantes según el enunciado
 features = [
     'FCVC',   # Frecuencia consumo vegetales
     'NCP',    # Número de comidas
     'CAEC',   # Consumo de alimentos calóricos
-    'CH20',   # Consumo de agua
+    'CH2O',   # Consumo de agua
     'FAF',    # Actividad física
     'SCC',    # Monitorea calorías
     'CALC',   # Consumo de alcohol
     'TUE'     # Tiempo usando tecnología
 ]
 
-target = 'NObeyesdad'  # Nivel de obesidad
+target = 'NObeyesdad'  # ---> Nivel de obesidad
 
-# Codificación de variables categóricas
+# Variables categóricas
 categorical = ['CAEC', 'CALC', 'SCC', 'NObeyesdad']
 label_encoders = {}
 
@@ -45,14 +44,13 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# Modelo: Random Forest
 model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X_train_scaled, y_train)
 
 # Predicción
 y_pred = model.predict(X_test_scaled)
 
-# Resultados
+# ---> Resultados
 print("Precisión del modelo:", accuracy_score(y_test, y_pred))
 print("\nReporte de clasificación:\n")
 print(classification_report(
